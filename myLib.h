@@ -76,15 +76,15 @@ double Get_mediana_for_homework_mark(Stud student)
 
 void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark)
 {
-	cout << left << setw(10) << "Pavarde" << setw(10) << "Vardas" << setw(10) << "Galutinis ";
+	cout << left << setw(14) << "Pavarde" << setw(14) << "Vardas" << "Galutinis ";
 	if (for_average_homework_mark) {
 		cout << "(vid.)" << endl;
 	}
 	else {
 		cout << "(med.)" << endl;
 	}
-	cout << "------------------------------------" << endl;
+	cout << "------------------------------------------------" << endl;
 	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
-		cout << left << setw(10) << grupe[i].second_name << setw(10) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
+		cout << left << setw(14) << grupe[i].second_name << setw(14) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
 	}
 }
