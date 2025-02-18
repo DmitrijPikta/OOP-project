@@ -30,6 +30,7 @@ double Get_average_for_homework_mark(Stud student);
 double Get_mediana_for_homework_mark(Stud student);
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark);
 void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark);
+int Get_size_for_string_printing(vector<Stud> grupe);
 
 
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark)
@@ -76,15 +77,40 @@ double Get_mediana_for_homework_mark(Stud student)
 
 void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark)
 {
-	cout << left << setw(14) << "Pavarde" << setw(14) << "Vardas" << "Galutinis ";
+	int size = Get_size_for_string_printing(grupe);
+	cout << left << setw(size) << "Pavarde" << setw(size) << "Vardas" << "Galutinis ";
 	if (for_average_homework_mark) {
 		cout << "(vid.)" << endl;
 	}
 	else {
 		cout << "(med.)" << endl;
 	}
-	cout << "------------------------------------------------" << endl;
+
+	cout << string(size + size + 18, '-') << endl;
+
 	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
-		cout << left << setw(14) << grupe[i].second_name << setw(14) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
+		cout << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
+	}
+}
+
+int Get_size_for_string_printing(vector<Stud> grupe)
+{
+	int max_length_of_string = 0;
+	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
+		if (grupe[i].name.length() > max_length_of_string or grupe[i].second_name.length() > max_length_of_string) {
+			if (grupe[i].name.length() > grupe[i].second_name.length()) {
+				max_length_of_string = grupe[i].name.length();
+			}
+			else {
+				max_length_of_string = grupe[i].second_name.length();
+			}
+		}
+	}
+
+	if (max_length_of_string < 11) {
+		return 12;
+	}
+	else {
+		return max_length_of_string + 2;
 	}
 }
