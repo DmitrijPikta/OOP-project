@@ -15,6 +15,7 @@ using std::exception;
 using std::setw;
 using std::left;
 using std::setprecision;
+using std::fixed;
 
 
 struct Stud {
@@ -28,7 +29,7 @@ struct Stud {
 double Get_average_for_homework_mark(Stud student);
 double Get_mediana_for_homework_mark(Stud student);
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark);
-void Print_final_mark(vector<Stud> grupe);
+void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark);
 
 
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark)
@@ -84,6 +85,6 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark)
 	}
 	cout << "------------------------------------" << endl;
 	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
-		cout << left << setw(10) << grupe[i].second_name << setw(10) << grupe[i].name << setprecision(2) << grupe[i].final_mark << endl;
+		cout << left << setw(10) << grupe[i].second_name << setw(10) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
 	}
 }

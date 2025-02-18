@@ -6,8 +6,7 @@ int main()
     Stud student;
     vector <Stud> grupe;
 
-
-    while (1) {
+    while (true) {
         cout << "To add student enter '+', to finish just enter something else" << endl;
         string adding_student;
         cin >> adding_student;
