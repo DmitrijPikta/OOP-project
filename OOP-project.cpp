@@ -64,8 +64,27 @@ int main()
         student.Homework_marks.clear();
     }
 
-    Get_final_mark(grupe, false);
-    Print_final_mark(grupe);
+    cout << "if you want to count with average value, enter 'a', if with madiana, enter 'm'" << endl;
+    string entered_simbol_for_avarege_or_mediana;
+    bool for_average_homework_mark;
+    cin >> entered_simbol_for_avarege_or_mediana;
+
+    while (true) {
+        if (entered_simbol_for_avarege_or_mediana == "a") {
+            for_average_homework_mark = true;
+            break;
+        }
+        else if (entered_simbol_for_avarege_or_mediana == "m") {
+            for_average_homework_mark = false;
+            break;
+        }
+        else {
+            cout << "Entered wrong simbol. Please enter 'a' - average or 'm' - mediana" << endl;
+            cin >> entered_simbol_for_avarege_or_mediana;
+        }
+    }
+    Get_final_mark(grupe, for_average_homework_mark);
+    Print_final_mark(grupe, for_average_homework_mark);
 
     return 0;
 }
