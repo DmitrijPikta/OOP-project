@@ -6,18 +6,46 @@ int main()
     Stud student;
     vector <Stud> grupe;
 
+
     while (true) {
-        cout << "To add student enter '+', to finish just enter something else" << endl;
-        string adding_student;
-        cin >> adding_student;
-        if (adding_student != "+") {
+        cout << "Please choose that you want to do and enter:" << endl;
+        cout << "'1' - to create a student and by hand enter his intormation" << endl;
+        cout << "'2' - to create a student, by hand enter his name and automatically generate his marks" << endl;
+        cout << "'3' - to create a student and automatically generate all his information" << endl;
+        cout << "'4' - to finish work and see results" << endl;
+
+        string entered_action;
+        cin >> entered_action;
+
+        if (entered_action != "1" and entered_action != "2" and entered_action != "3" and entered_action != "4") {
+            cout << "Please enter one command from menu" << endl;
+            continue;
+        }
+
+        if (entered_action == "4") {
             break;
         }
+
+        if (entered_action == "3") {
+            generate_name(student);
+            generate_marks(student);
+            grupe.push_back(student);
+            student.Homework_marks.clear();
+            continue;
+        }
+
         cout << "Please input student's name" << endl;
         cin >> student.name;
 
         cout << "Please input student's second name" << endl;
         cin >> student.second_name;
+
+        if (entered_action == "2") {
+            generate_marks(student);
+            grupe.push_back(student);
+            student.Homework_marks.clear();
+            continue;
+        }
 
         cout << "Please input student's one homework mark, when to save it, press enter. To finish entering marks enter double slash '//'" << endl;
         string entered_mark;

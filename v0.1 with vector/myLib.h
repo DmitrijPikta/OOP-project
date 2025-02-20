@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <random>
 
 using std::cout;
 using std::cin;
@@ -31,6 +32,8 @@ double Get_mediana_for_homework_mark(Stud student);
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark);
 void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark);
 int Get_size_for_string_printing(vector<Stud> grupe);
+void generate_marks(Stud& student);
+void generate_name(Stud& student);
 
 
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark)
@@ -62,7 +65,6 @@ double Get_average_for_homework_mark(Stud student)
 double Get_mediana_for_homework_mark(Stud student)
 {
 	int amount_of_marks = student.Homework_marks.end() - student.Homework_marks.begin();
-	cout << amount_of_marks << endl;
 	if (amount_of_marks == 0) {
 		return 0;
 	}
@@ -113,4 +115,14 @@ int Get_size_for_string_printing(vector<Stud> grupe)
 	else {
 		return max_length_of_string + 2;
 	}
+}
+
+void generate_marks(Stud &student) 
+{
+
+}
+
+void generate_name(Stud& student)
+{
+
 }
