@@ -130,5 +130,23 @@ void generate_marks(Stud &student)
 
 void generate_name(Stud& student)
 {
+	vector<string> Names = {
+	"Alice", "Bob", "Charlie", "David", "Emma",
+	"Frank", "Grace", "Henry", "Ivy", "Jack",
+	"Karen", "Liam", "Mia", "Noah", "Olivia",
+	"Paul", "Quinn", "Rachel", "Sam", "Tina"
+	};
+	vector<string> Second_names = {
+		"Smith", "Johnson", "Williams", "Brown", "Jones",
+		"Miller", "Davis", "Garcia", "Rodriguez", "Martinez",
+		"Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson",
+		"Thomas", "Taylor", "Moore", "Jackson", "Martin"
+	};
 
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> distrib(0, 19);
+
+	student.name = Names[distrib(gen)];
+	student.second_name = Second_names[distrib(gen)];
 }
