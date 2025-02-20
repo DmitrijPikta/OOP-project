@@ -1,11 +1,36 @@
 
 #include "myLib.h"
 
+void Vector_vertion();
+void C_array_vertion();
+
 int main()
 {
+    while (true) {
+        cout << "Please choose program version and enter:" << endl;
+        cout << "'1' - to choose vector version" << endl;
+        cout << "'2' - to choose C array version" << endl;
+        string choosed_version;
+        cin >> choosed_version;
+        if (choosed_version == "1") {
+            cout << "<<<<<<<<<<<<<<<<<<<<<<< Vector vertion >>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
+            Vector_vertion();
+            break;
+        }
+        else if (choosed_version == "2") {
+            cout << "<<<<<<<<<<<<<<<<<<<<<<< C array vertion >>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
+            C_array_vertion();
+            break;
+        }
+        else {
+            cout << "Please enter '1' or '2'" << endl;
+        }
+    }
+}
+
+void Vector_vertion() {
     Stud student;
     vector <Stud> grupe;
-
 
     while (true) {
         cout << "Please choose that you want to do and enter:" << endl;
@@ -117,6 +142,10 @@ int main()
     else {
         cout << "There are no students here" << endl;
     }
-
-    return 0;
 }
+
+void C_array_vertion() {
+
+}
+
+    
