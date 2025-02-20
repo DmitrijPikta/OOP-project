@@ -119,7 +119,13 @@ int Get_size_for_string_printing(vector<Stud> grupe)
 
 void generate_marks(Stud &student) 
 {
-
+	std::random_device rd;									// Create a random device and seed the generator
+	std::mt19937 gen(rd());									// Mersenne Twister engine
+	std::uniform_int_distribution<int> distrib(1, 10);      // Define range 1 to 10
+	for (int i = 0; i < distrib(gen); i++) {
+		student.Homework_marks.push_back(distrib(gen));
+	}
+	student.exam_mark = distrib(gen);
 }
 
 void generate_name(Stud& student)
