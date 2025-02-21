@@ -22,15 +22,16 @@ using std::fixed;
 struct Stud {
 	string name;
 	string second_name;
-	vector <int> Homework_marks;
+	vector <int> Homework_marks;			
 	int exam_mark;
 	double final_mark;
+	//for storing homwork marks using C array
 	int capacity_for_hw_marks = 10;
 	int size_for_hw_marks = 0;
 	int* homework_marks = new int[capacity_for_hw_marks];
 };
 
-
+//Function for Vector vertion
 double Get_average_for_homework_mark(Stud student);
 double Get_mediana_for_homework_mark(Stud student);
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark);
@@ -38,7 +39,7 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark);
 int Get_size_for_string_printing(vector<Stud> grupe);
 void generate_marks(Stud& student);
 void generate_name(Stud& student);
-//----------------------------------------
+//Function for C array vertion
 void Add_value_to_array(Stud*& array, int& size, int& capacity, Stud value);
 void Add_value_to_array(int*& array, int& size, int& capacity, int value);
 void Get_final_mark_C_array(Stud*& grupe_array, int size_for_grupe, bool for_average_homework_mark);
@@ -284,18 +285,19 @@ void generate_name_C_array(Stud& student)
 
 void Add_value_to_array(Stud*& array, int& size, int& capacity, Stud value)
 {
+	//If it nessesary to increase array
 	if (size == capacity) {
 		capacity += 10;
-		Stud* newArray = new Stud[capacity];
+		Stud* newArray = new Stud[capacity];    //created new array
 
 		for (int i = 0; i < size; i++) {
-			newArray[i] = array[i];
+			newArray[i] = array[i];				//copying values from old array to new array
 		}
-		delete[] array;
-		array = newArray;
+		delete[] array;							//delete odl array 
+		array = newArray;						//replace old array by new array
 	}
 
-	array[size] = value;
+	array[size] = value;						//adding new value to array
 	size++;
 }
 
