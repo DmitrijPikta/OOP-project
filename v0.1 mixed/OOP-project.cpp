@@ -118,6 +118,7 @@ void Vector_vertion() {
         student.Homework_marks.clear();
     }
 
+    //if where are any students, ask how to count results, with average or mediana from homework marks
     if (!grupe.empty()) {
         cout << "if you want to count with average value, enter 'a', if with madiana, enter 'm'" << endl;
         string entered_simbol_for_avarege_or_mediana;
@@ -240,6 +241,7 @@ void C_array_vertion() {
         student.size_for_hw_marks = 0;
     }
 
+    //if where are any students, ask how to count results, with average or mediana from homework marks
     if (size_for_grupe > 0) {
         cout << "if you want to count with average value, enter 'a', if with madiana, enter 'm'" << endl;
         string entered_simbol_for_avarege_or_mediana;
