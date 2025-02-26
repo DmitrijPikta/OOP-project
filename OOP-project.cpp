@@ -28,7 +28,7 @@ int main()
         }
 
         if (entered_action == "4") {
-            Enter_students_using_txt_file();
+            Enter_students_using_txt_file(grupe);
             continue;
         }
 

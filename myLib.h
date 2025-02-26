@@ -37,7 +37,7 @@ int Get_size_for_string_printing(vector<Stud> grupe);
 void generate_marks(Stud& student);
 void generate_name(Stud& student);
 
-void Enter_students_using_txt_file();
+void Enter_students_using_txt_file(vector<Stud> &grupe);
 
 
 
@@ -157,9 +157,11 @@ void generate_name(Stud& student)
 	student.second_name = Second_names[distrib(gen)];
 }
 
-void Enter_students_using_txt_file()
+void Enter_students_using_txt_file(vector<Stud> &grupe)
 {
 	string file_name;
+	Stud student;
+	int mark;
 	while (true) {
 		cout << "Please enter file name" << endl;
 		cin >> file_name;
@@ -181,8 +183,19 @@ void Enter_students_using_txt_file()
 				last_homework_mark = true;
 			}
 		}
+
+		while (fd >> student.name) {
+			fd >> student.second_name;
+			for (int i = 0; i < number_of_homework_marks; i++) {
+				fd >> mark;
+				student.Homework_marks.push_back(mark);
+			}
+			fd >> student.exam_mark;
+
+			grupe.push_back(student);
+			student.Homework_marks.clear();
+		}
 	
-		cout << number_of_homework_marks << endl;
 		fd.close();
 		break;
 	}
