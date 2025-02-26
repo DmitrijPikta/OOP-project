@@ -5,25 +5,31 @@ int main()
 {
     Stud student;
     vector <Stud> grupe;
-
+    
 
     while (true) {
         cout << "Please choose that you want to do and enter:" << endl;
         cout << "'1' - to create a student and by hand enter his intormation" << endl;
         cout << "'2' - to create a student, by hand enter his name and automatically generate his marks" << endl;
         cout << "'3' - to create a student and automatically generate all his information" << endl;
-        cout << "'4' - to finish work and see results" << endl;
+        cout << "'4' - to enter students using txt file" << endl;
+        cout << "'5' - to finish work and see results" << endl;
 
         string entered_action;
         cin >> entered_action;
 
-        if (entered_action != "1" and entered_action != "2" and entered_action != "3" and entered_action != "4") {
+        if (entered_action != "1" and entered_action != "2" and entered_action != "3" and entered_action != "4" and entered_action != "5") {
             cout << "Please enter one command from menu" << endl;
             continue;
         }
 
-        if (entered_action == "4") {
+        if (entered_action == "5") {
             break;
+        }
+
+        if (entered_action == "4") {
+            Enter_students_using_txt_file();
+            continue;
         }
 
         if (entered_action == "3") {

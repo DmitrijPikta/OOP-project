@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <random>
+#include <fstream>
 
 using std::cout;
 using std::cin;
@@ -17,6 +18,7 @@ using std::setw;
 using std::left;
 using std::setprecision;
 using std::fixed;
+
 
 
 struct Stud {
@@ -34,6 +36,10 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark);
 int Get_size_for_string_printing(vector<Stud> grupe);
 void generate_marks(Stud& student);
 void generate_name(Stud& student);
+
+void Enter_students_using_txt_file();
+
+
 
 
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark)
@@ -150,3 +156,37 @@ void generate_name(Stud& student)
 	student.name = Names[distrib(gen)];
 	student.second_name = Second_names[distrib(gen)];
 }
+
+void Enter_students_using_txt_file()
+{
+	string file_name;
+	while (true) {
+		cout << "Please enter file name" << endl;
+		cin >> file_name;
+
+		std::ifstream fd(file_name);
+		if (!fd) {
+			cout << "unable to open file" << endl;
+			continue;
+		}
+		
+		string element;
+		bool last_homework_mark = false;
+		int number_of_homework_marks = -1;
+		fd >> element >> element;
+		while (!last_homework_mark) {
+			number_of_homework_marks++;
+			fd >> element;
+			if (element == "Egz.") {
+				last_homework_mark = true;
+			}
+		}
+	
+		cout << number_of_homework_marks << endl;
+		fd.close();
+		break;
+	}
+}
+
+
+
