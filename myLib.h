@@ -27,12 +27,13 @@ struct Stud {
 	vector <int> Homework_marks;
 	int exam_mark;
 	double final_mark;
+	double second_final_mark;
 };
 
 double Get_average_for_homework_mark(Stud student);
 double Get_mediana_for_homework_mark(Stud student);
-void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark);
-void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark);
+void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark, bool for_both_homework_mark);
+void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool for_both_homework_mark);
 int Get_size_for_string_printing(vector<Stud> grupe);
 void generate_marks(Stud& student);
 void generate_name(Stud& student);
@@ -42,10 +43,14 @@ void Enter_students_using_txt_file(vector<Stud> &grupe);
 
 
 
-void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark)
+void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark, bool for_both_homework_mark)
 {
 	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
-		if (for_average_homework_mark) {
+		if (for_average_homework_mark and for_both_homework_mark) {
+			grupe[i].final_mark = 0.6 * grupe[i].exam_mark + 0.4 * Get_average_for_homework_mark(grupe[i]);
+			grupe[i].second_final_mark = 0.6 * grupe[i].exam_mark + 0.4 * Get_mediana_for_homework_mark(grupe[i]);
+		}
+		else if (for_average_homework_mark) {
 			grupe[i].final_mark = 0.6 * grupe[i].exam_mark + 0.4 * Get_average_for_homework_mark(grupe[i]);
 		}
 		else {
@@ -83,21 +88,38 @@ double Get_mediana_for_homework_mark(Stud student)
 	}
 }
 
-void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark)
+void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool for_both_homework_mark)
 {
 	int size = Get_size_for_string_printing(grupe);
 	cout << left << setw(size) << "Pavarde" << setw(size) << "Vardas" << "Galutinis ";
-	if (for_average_homework_mark) {
+	if (for_both_homework_mark) {
+		cout << "(vid.)" << " " << "Galutinis (med.)" << endl;
+	}
+	else if (for_average_homework_mark) {
 		cout << "(vid.)" << endl;
 	}
 	else {
 		cout << "(med.)" << endl;
 	}
+	
+	int size_of_atribute_for_marks;
+	if (for_both_homework_mark) {
+		size_of_atribute_for_marks = 18 + 16;
+	}
+	else {
+		size_of_atribute_for_marks = 18;
+	}
+	cout << string(size + size + size_of_atribute_for_marks, '-') << endl;
 
-	cout << string(size + size + 18, '-') << endl;
-
-	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
-		cout << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
+	if (!for_both_homework_mark) {
+		for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
+			cout << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
+		}
+	}
+	else {
+		for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
+			cout << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << setw(17) << grupe[i].final_mark << grupe[i].second_final_mark << endl;
+		}
 	}
 }
 

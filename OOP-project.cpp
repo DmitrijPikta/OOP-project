@@ -98,9 +98,10 @@ int main()
     }
 
     if (!grupe.empty()) {
-        cout << "if you want to count with average value, enter 'a', if with madiana, enter 'm'" << endl;
+        cout << "if you want to count with average value, enter 'a', if with madiana, enter 'm', if with both, enter 'b'" << endl;
         string entered_simbol_for_avarege_or_mediana;
         bool for_average_homework_mark;
+        bool for_both_homework_mark = false;
         cin >> entered_simbol_for_avarege_or_mediana;
 
         while (true) {
@@ -112,13 +113,18 @@ int main()
                 for_average_homework_mark = false;
                 break;
             }
+            else if (entered_simbol_for_avarege_or_mediana == "b") {
+                for_average_homework_mark = true;
+                for_both_homework_mark = true;
+                break;
+            }
             else {
                 cout << "Entered wrong simbol. Please enter 'a' - average or 'm' - mediana" << endl;
                 cin >> entered_simbol_for_avarege_or_mediana;
             }
         }
-        Get_final_mark(grupe, for_average_homework_mark);
-        Print_final_mark(grupe, for_average_homework_mark);
+        Get_final_mark(grupe, for_average_homework_mark, for_both_homework_mark);
+        Print_final_mark(grupe, for_average_homework_mark, for_both_homework_mark);
     }
     else {
         cout << "There are no students here" << endl;
