@@ -7,6 +7,7 @@
 #include <vector>
 #include <random>
 #include <fstream>
+#include <sstream>
 
 using std::cout;
 using std::cin;
@@ -33,7 +34,7 @@ struct Stud {
 double Get_average_for_homework_mark(Stud student);
 double Get_mediana_for_homework_mark(Stud student);
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark, bool for_both_homework_mark);
-void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool for_both_homework_mark);
+void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool for_both_homework_mark, bool print_results_in_terminal);
 int Get_size_for_string_printing(vector<Stud> grupe);
 void generate_marks(Stud& student);
 void generate_name(Stud& student);
@@ -88,20 +89,22 @@ double Get_mediana_for_homework_mark(Stud student)
 	}
 }
 
-void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool for_both_homework_mark)
+void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool for_both_homework_mark, bool print_results_in_terminal)
 {
+	string output;
+	auto Print_results = [print_results_in_terminal](string output) {
+		if (print_results_in_terminal) {
+			cout << output;
+		}
+		else {
+			std::ofstream fr("Rezultatai.txt", std::ios::app);
+			fr << output;
+			fr.close();
+		}
+		};
+
+
 	int size = Get_size_for_string_printing(grupe);
-	cout << left << setw(size) << "Pavarde" << setw(size) << "Vardas" << "Galutinis ";
-	if (for_both_homework_mark) {
-		cout << "(vid.)" << " " << "Galutinis (med.)" << endl;
-	}
-	else if (for_average_homework_mark) {
-		cout << "(vid.)" << endl;
-	}
-	else {
-		cout << "(med.)" << endl;
-	}
-	
 	int size_of_atribute_for_marks;
 	if (for_both_homework_mark) {
 		size_of_atribute_for_marks = 18 + 16;
@@ -109,16 +112,54 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 	else {
 		size_of_atribute_for_marks = 18;
 	}
-	cout << string(size + size + size_of_atribute_for_marks, '-') << endl;
 
+	if (print_results_in_terminal) {
+		cout << left << setw(size) << "Pavarde" << setw(size) << "Vardas" << "Galutinis ";
+		if (for_both_homework_mark) {
+			cout << "(vid.)" << " " << "Galutinis (med.)" << endl;
+		}
+		else if (for_average_homework_mark) {
+			cout << "(vid.)" << endl;
+		}
+		else {
+			cout << "(med.)" << endl;
+		}
+		cout << string(size + size + size_of_atribute_for_marks, '-') << endl;
+	}
+	else {
+		std::ofstream fr("Rezultatai.txt");
+		fr << left << setw(size) << "Pavarde" << setw(size) << "Vardas" << "Galutinis ";
+		if (for_both_homework_mark) {
+			fr << "(vid.)" << " " << "Galutinis (med.)" << endl;
+		}
+		else if (for_average_homework_mark) {
+			fr << "(vid.)" << endl;
+		}
+		else {
+			fr << "(med.)" << endl;
+		}
+		fr << string(size + size + size_of_atribute_for_marks, '-') << endl;
+		fr.close();
+	}
+	
+	
+	std::ostringstream oss;
 	if (!for_both_homework_mark) {
 		for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
-			cout << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
+			oss << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
+			output = oss.str();
+			oss.str("");					// Clears the string content 
+			oss.clear();					// Reaet error flags (e.g., EOF)
+			Print_results(output);
 		}
 	}
 	else {
 		for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
-			cout << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << setw(17) << grupe[i].final_mark << grupe[i].second_final_mark << endl;
+			oss << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << setw(17) << grupe[i].final_mark << grupe[i].second_final_mark << endl;
+			output = oss.str();
+			oss.str("");
+			oss.clear();
+			Print_results(output);
 		}
 	}
 }

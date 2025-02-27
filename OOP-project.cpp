@@ -124,7 +124,25 @@ int main()
             }
         }
         Get_final_mark(grupe, for_average_homework_mark, for_both_homework_mark);
-        Print_final_mark(grupe, for_average_homework_mark, for_both_homework_mark);
+
+        cout << "If you want to get results in terminal, enter 't', if you want to get results in file, enter 'f'" << endl;
+        bool print_results_in_terminal;
+        while (true) {
+            string entered_simbol_to_choose_printing;
+            cin >> entered_simbol_to_choose_printing;
+            if (entered_simbol_to_choose_printing == "t") {
+                print_results_in_terminal = true;
+                break;
+            }
+            else if (entered_simbol_to_choose_printing == "f") {
+                print_results_in_terminal = false;
+                break;
+            }
+            else {
+                cout << "Entered wrong simbol. Please enter 't' or 'f'" << endl;
+            }
+        }
+        Print_final_mark(grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
     }
     else {
         cout << "There are no students here" << endl;
