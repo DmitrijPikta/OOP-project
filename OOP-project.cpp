@@ -143,7 +143,44 @@ int main()
             }
         }
 
-        Sort_students(grupe, "name");
+        string entered_number_to_choose_sort;
+        string parametr;
+        while (true) {
+            cout << "Please choose which attribute you want to sort. Please enter:" << endl;
+            cout << "'1' - to sort by name" << endl;
+            cout << "'2' - to sort by second name" << endl;
+            if (for_both_homework_mark) {
+                cout << "'3' - to sort by final result with average value" << endl;
+                cout << "'4' - to sort by final result with mediana value" << endl;
+            }
+            else if (for_average_homework_mark) {
+                cout << "'3' - to sort by final result with average value" << endl;
+            }
+            else {
+                cout << "'3' - to sort by final result with mediana value" << endl;
+            }
+
+            cin >> entered_number_to_choose_sort;
+            if (entered_number_to_choose_sort == "1") {
+                parametr = "name";
+                break;
+            }
+            else if (entered_number_to_choose_sort == "2") {
+                parametr = "second_name";
+                break;
+            }
+            else if (entered_number_to_choose_sort == "3") {
+                parametr = "final_mark";
+                break;
+            }
+            else if (entered_number_to_choose_sort == "4") {
+                parametr = "second_final_mark";
+                break;
+            }
+            cout << "Entered wrong simbol" << endl;
+        }
+
+        Sort_students(grupe, parametr);
         Print_final_mark(grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
     }
     else {
