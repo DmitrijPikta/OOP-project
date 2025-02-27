@@ -1,6 +1,8 @@
 
 #include "myLib.h"
 
+
+
 int main()
 {
     Stud student;
@@ -27,7 +29,7 @@ int main()
             break;
         }
 
-        if (entered_action == "4") {
+        if (entered_action == "4") { 
             Enter_students_using_txt_file(grupe);
             continue;
         }
@@ -119,7 +121,7 @@ int main()
                 break;
             }
             else {
-                cout << "Entered wrong simbol. Please enter 'a' - average or 'm' - mediana" << endl;
+                cout << "Entered wrong simbol. Please enter 'a' - average, 'm' - mediana and 'b' - both" << endl;
                 cin >> entered_simbol_for_avarege_or_mediana;
             }
         }
@@ -187,6 +189,7 @@ int main()
         cout << "There are no students here" << endl;
     }
 
+    cout << "Time of imput(file reading) and output: " << time_of_working_with_file;
     return 0;
 }
 

@@ -8,7 +8,7 @@
 #include <random>
 #include <fstream>
 #include <sstream>
-
+#include <chrono>
 
 
 using std::cout;
@@ -22,8 +22,7 @@ using std::left;
 using std::setprecision;
 using std::fixed;
 
-
-
+double time_of_working_with_file = 0;
 
 struct Stud {
 	string name;
@@ -44,8 +43,6 @@ void generate_name(Stud& student);
 
 void Enter_students_using_txt_file(vector<Stud> &grupe);
 void Sort_students(vector <Stud>& grupe, string parametr);
-
-
 
 
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark, bool for_both_homework_mark)
@@ -95,6 +92,9 @@ double Get_mediana_for_homework_mark(Stud student)
 
 void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool for_both_homework_mark, bool print_results_in_terminal)
 {
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now();		// Time	
+	//---------------------------------------------------------------------------
 	string output;
 	auto Print_results = [print_results_in_terminal](string output) {
 		if (print_results_in_terminal) {
@@ -165,6 +165,11 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 			Print_results(output);
 		}
 	}
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start;		//Time
+	time_of_working_with_file += diff.count();
+	//-----------------------------------------------------------------
 }
 
 int Get_size_for_string_printing(vector<Stud> grupe)
@@ -237,7 +242,9 @@ void Enter_students_using_txt_file(vector<Stud> &grupe)
 			cout << "unable to open file" << endl;
 			continue;
 		}
-		
+		//---------------------------------------------------------------------------
+		auto start = std::chrono::high_resolution_clock::now();		// Time	
+		//---------------------------------------------------------------------------
 		string element;
 		bool last_homework_mark = false;
 		int number_of_homework_marks = -1;
@@ -263,6 +270,11 @@ void Enter_students_using_txt_file(vector<Stud> &grupe)
 		}
 	
 		fd.close();
+		//-----------------------------------------------------------------
+		auto end = std::chrono::high_resolution_clock::now();
+		std::chrono::duration<double> diff = end - start;		//Time
+		time_of_working_with_file += diff.count();
+		//-----------------------------------------------------------------
 		break;
 	}
 }
