@@ -9,6 +9,8 @@
 #include <fstream>
 #include <sstream>
 
+
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -19,6 +21,7 @@ using std::setw;
 using std::left;
 using std::setprecision;
 using std::fixed;
+
 
 
 
@@ -40,6 +43,7 @@ void generate_marks(Stud& student);
 void generate_name(Stud& student);
 
 void Enter_students_using_txt_file(vector<Stud> &grupe);
+void Sort_students(vector <Stud>& grupe, string parametr);
 
 
 
@@ -141,7 +145,6 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 		fr << string(size + size + size_of_atribute_for_marks, '-') << endl;
 		fr.close();
 	}
-	
 	
 	std::ostringstream oss;
 	if (!for_both_homework_mark) {
@@ -261,6 +264,30 @@ void Enter_students_using_txt_file(vector<Stud> &grupe)
 	
 		fd.close();
 		break;
+	}
+}
+
+void Sort_students(vector <Stud>& grupe, string parametr)
+{
+	if (parametr == "final_mark") {
+		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b) {
+			return a.final_mark > b.final_mark;
+			});
+	}
+	else if (parametr == "second_final_mark") {
+		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b) {
+			return a.second_final_mark > b.second_final_mark;
+			});
+	}
+	else if (parametr == "name") {
+		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b) {
+			return a.name < b.name;
+			});
+	}
+	else if (parametr == "second_name") {
+		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b) {
+			return a.second_name < b.second_name;
+			});
 	}
 }
 

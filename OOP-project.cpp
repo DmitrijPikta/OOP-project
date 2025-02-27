@@ -142,6 +142,8 @@ int main()
                 cout << "Entered wrong simbol. Please enter 't' or 'f'" << endl;
             }
         }
+
+        Sort_students(grupe, "name");
         Print_final_mark(grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
     }
     else {
