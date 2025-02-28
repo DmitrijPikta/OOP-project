@@ -96,16 +96,14 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 	auto start = std::chrono::high_resolution_clock::now();		// Time	
 	//---------------------------------------------------------------------------
 	string output;
-	auto Print_results = [print_results_in_terminal](string output) {
+	auto Print_results = [print_results_in_terminal](string output, std::ofstream &fr) {
 		if (print_results_in_terminal) {
 			cout << output;
 		}
 		else {
-			std::ofstream fr("Rezultatai.txt", std::ios::app);
 			fr << output;
-			fr.close();
 		}
-		};
+	};
 
 
 	int size = Get_size_for_string_printing(grupe);
@@ -145,15 +143,15 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 		fr << string(size + size + size_of_atribute_for_marks, '-') << endl;
 		fr.close();
 	}
-	
+	std::ofstream fr("Rezultatai.txt", std::ios::app); ///////
 	std::ostringstream oss;
 	if (!for_both_homework_mark) {
 		for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
 			oss << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
 			output = oss.str();
 			oss.str("");					// Clears the string content 
-			oss.clear();					// Reaet error flags (e.g., EOF)
-			Print_results(output);
+			oss.clear();					// Reset error flags (e.g., EOF)
+			Print_results(output, fr);
 		}
 	}
 	else {
@@ -162,9 +160,10 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 			output = oss.str();
 			oss.str("");
 			oss.clear();
-			Print_results(output);
+			Print_results(output, fr);
 		}
 	}
+	fr.close();
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> diff = end - start;		//Time
