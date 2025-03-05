@@ -232,48 +232,55 @@ void Enter_students_using_txt_file(vector<Stud> &grupe)
 	string file_name;
 	Stud student;
 	int mark;
+
+	string element;
+	bool last_homework_mark = false;
+	int number_of_homework_marks = -1;
+
 	while (true) {
 		cout << "Please enter file name" << endl;
 		cin >> file_name;
-
 		std::ifstream fd(file_name);
-		if (!fd) {
+		
+		try {
+			if (!fd) {
+				throw std::runtime_error("");
+			}
+			//---------------------------------------------------------------------------
+			auto start = std::chrono::high_resolution_clock::now();		// Time	
+			//---------------------------------------------------------------------------
+			fd >> element >> element;
+			while (!last_homework_mark) {
+				number_of_homework_marks++;
+				fd >> element;
+				if (element == "Egz.") {
+					last_homework_mark = true;
+				}
+			}
+
+			while (fd >> student.name) {
+				fd >> student.second_name;
+				for (int i = 0; i < number_of_homework_marks; i++) {
+					fd >> mark;
+					student.Homework_marks.push_back(mark);
+				}
+				fd >> student.exam_mark;
+
+				grupe.push_back(student);
+				student.Homework_marks.clear();
+			}
+
+			fd.close();
+			//-----------------------------------------------------------------
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double> diff = end - start;		//Time
+			time_of_working_with_file += diff.count();
+			//-----------------------------------------------------------------
+		}
+		catch (exception) {
 			cout << "unable to open file" << endl;
 			continue;
 		}
-		//---------------------------------------------------------------------------
-		auto start = std::chrono::high_resolution_clock::now();		// Time	
-		//---------------------------------------------------------------------------
-		string element;
-		bool last_homework_mark = false;
-		int number_of_homework_marks = -1;
-		fd >> element >> element;
-		while (!last_homework_mark) {
-			number_of_homework_marks++;
-			fd >> element;
-			if (element == "Egz.") {
-				last_homework_mark = true;
-			}
-		}
-
-		while (fd >> student.name) {
-			fd >> student.second_name;
-			for (int i = 0; i < number_of_homework_marks; i++) {
-				fd >> mark;
-				student.Homework_marks.push_back(mark);
-			}
-			fd >> student.exam_mark;
-
-			grupe.push_back(student);
-			student.Homework_marks.clear();
-		}
-	
-		fd.close();
-		//-----------------------------------------------------------------
-		auto end = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<double> diff = end - start;		//Time
-		time_of_working_with_file += diff.count();
-		//-----------------------------------------------------------------
 		break;
 	}
 }
