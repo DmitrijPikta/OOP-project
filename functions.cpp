@@ -3,6 +3,9 @@
 
 void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark, bool for_both_homework_mark)
 {
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now();		// Time	
+	//---------------------------------------------------------------------------
 	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
 		if (for_average_homework_mark and for_both_homework_mark) {
 			grupe[i].final_mark = 0.6 * grupe[i].exam_mark + 0.4 * Get_average_for_homework_mark(grupe[i]);
@@ -15,6 +18,11 @@ void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark, bool f
 			grupe[i].final_mark = 0.6 * grupe[i].exam_mark + 0.4 * Get_mediana_for_homework_mark(grupe[i]);
 		}
 	}
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start;		//Time
+	time_of_culculating += diff.count();
+	//-----------------------------------------------------------------
 }
 
 double Get_average_for_homework_mark(Stud student)
@@ -131,7 +139,7 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> diff = end - start;		//Time
-	time_of_working_with_file += diff.count();
+	time_of_writing_files += diff.count();
 	//-----------------------------------------------------------------
 }
 
@@ -248,7 +256,7 @@ void Enter_students_using_txt_file(vector<Stud>& grupe)
 			//-----------------------------------------------------------------
 			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<double> diff = end - start;		//Time
-			time_of_working_with_file += diff.count();
+			time_of_reading_file += diff.count();
 			//-----------------------------------------------------------------
 		}
 		catch (exception) {
@@ -261,6 +269,9 @@ void Enter_students_using_txt_file(vector<Stud>& grupe)
 
 void Sort_students(vector <Stud>& grupe, string parametr)
 {
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now();		// Time	
+	//---------------------------------------------------------------------------
 	if (parametr == "final_mark") {
 		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b) {
 			return a.final_mark > b.final_mark;
@@ -281,6 +292,11 @@ void Sort_students(vector <Stud>& grupe, string parametr)
 			return a.second_name < b.second_name;
 			});
 	}
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start;		//Time
+	time_of_sorting += diff.count();
+	//-----------------------------------------------------------------
 }
 
 bool Generate_file_with_students(int number_of_students, int number_of_marks, string filename)
@@ -297,7 +313,9 @@ bool Generate_file_with_students(int number_of_students, int number_of_marks, st
 		cout << "Change file name, file can not have this name. Good name example: 'example.txt'" << endl;
 		return false;
 	}
-
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now();		// Time	
+	//---------------------------------------------------------------------------
 	std::ofstream fr(filename);
 
 	fr << left << setw(20) <<  "Vardas" << setw(20) << "Pavarde";
@@ -318,11 +336,19 @@ bool Generate_file_with_students(int number_of_students, int number_of_marks, st
 	}
 
 	fr.close();
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start;		//Time
+	time_of_generating_file += diff.count();
+	//-----------------------------------------------------------------
 	return true;
 }
 
 void Divide_for_two_grupse(vector<Stud> grupe, vector<Stud>& best_grupe, vector<Stud>& worst_grupe)
 {
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now();		// Time	
+	//---------------------------------------------------------------------------
 	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
 		if (grupe[i].final_mark >= 5) {
 			best_grupe.push_back(grupe[i]);
@@ -331,4 +357,9 @@ void Divide_for_two_grupse(vector<Stud> grupe, vector<Stud>& best_grupe, vector<
 			worst_grupe.push_back(grupe[i]);
 		}
 	}
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start;		//Time
+	time_of_dividing += diff.count();
+	//-----------------------------------------------------------------
 }

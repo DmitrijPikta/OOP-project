@@ -31,9 +31,13 @@ struct Stud {
 	double second_final_mark;
 };
 
-double time_of_working_with_file = 0;
+
 double time_of_generating_file = 0;
-double time_of_processing_file = 0;
+double time_of_reading_file = 0;
+double time_of_dividing = 0;		//For best and worst
+double time_of_sorting = 0;
+double time_of_culculating = 0;
+double time_of_writing_files = 0;
 
 
 double Get_average_for_homework_mark(Stud student);

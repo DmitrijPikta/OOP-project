@@ -214,10 +214,12 @@ int main()
 
         vector<Stud> best_grupe;
         vector<Stud> worst_grupe;
+
+        Sort_students(grupe, parametr);
         Divide_for_two_grupse(grupe, best_grupe, worst_grupe);
 
-        Sort_students(best_grupe, parametr);
-        Sort_students(worst_grupe, parametr);
+        //Sort_students(best_grupe, parametr);
+        //Sort_students(worst_grupe, parametr);
         Print_final_mark(best_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
         Print_final_mark(worst_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
 
@@ -226,7 +228,14 @@ int main()
         cout << "There are no students here" << endl;
     }
 
-    cout << "Time of imput(file reading) and output: " << time_of_working_with_file;
+ 
+    cout << "Time of generating file: " << time_of_generating_file << endl;
+    cout << "Time of reading file: " << time_of_reading_file << endl;
+    cout << "Time of cultulating final mark: " << time_of_culculating << endl;
+    cout << "Time of sorting: " << time_of_sorting << endl;
+    cout << "Time of dividing to best and worst grupe: " << time_of_dividing << endl;
+    cout << "Time of writing: " << time_of_writing_files << endl;
+    cout << "Time of working with file: " << time_of_reading_file + time_of_culculating + time_of_sorting + time_of_dividing + time_of_writing_files << endl;
     return 0;
 }
 
