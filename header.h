@@ -44,4 +44,3 @@ void generate_name(Stud& student);
 void Enter_students_using_txt_file(vector<Stud>& grupe);
 void Sort_students(vector <Stud>& grupe, string parametr);
 
-//#endif
