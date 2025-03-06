@@ -62,6 +62,14 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 		};
 
 
+	string filename;
+	if (grupe.back().final_mark >= 5) {
+		filename = "Best_grupe.txt";
+	}
+	else {
+		filename = "Worst_grupe.txt";
+	}
+
 	int size = Get_size_for_string_printing(grupe);
 	int size_of_atribute_for_marks;
 	if (for_both_homework_mark) {
@@ -85,7 +93,7 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 		cout << string(size + size + size_of_atribute_for_marks, '-') << endl;
 	}
 	else {
-		std::ofstream fr("Rezultatai.txt");
+		std::ofstream fr(filename);
 		fr << left << setw(size) << "Pavarde" << setw(size) << "Vardas" << "Galutinis ";
 		if (for_both_homework_mark) {
 			fr << "(vid.)" << " " << "Galutinis (med.)" << endl;
@@ -99,7 +107,7 @@ void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool f
 		fr << string(size + size + size_of_atribute_for_marks, '-') << endl;
 		fr.close();
 	}
-	std::ofstream fr("Rezultatai.txt", std::ios::app);
+	std::ofstream fr(filename, std::ios::app);
 	std::ostringstream oss;
 	if (!for_both_homework_mark) {
 		for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
@@ -311,4 +319,16 @@ bool Generate_file_with_students(int number_of_students, int number_of_marks, st
 
 	fr.close();
 	return true;
+}
+
+void Divide_for_two_grupse(vector<Stud> grupe, vector<Stud>& best_grupe, vector<Stud>& worst_grupe)
+{
+	for (int i = 0; i < grupe.end() - grupe.begin(); i++) {
+		if (grupe[i].final_mark >= 5) {
+			best_grupe.push_back(grupe[i]);
+		}
+		else {
+			worst_grupe.push_back(grupe[i]);
+		}
+	}
 }

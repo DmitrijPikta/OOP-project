@@ -32,6 +32,8 @@ struct Stud {
 };
 
 double time_of_working_with_file = 0;
+double time_of_generating_file = 0;
+double time_of_processing_file = 0;
 
 
 double Get_average_for_homework_mark(Stud student);
@@ -45,5 +47,6 @@ void generate_name(Stud& student);
 void Enter_students_using_txt_file(vector<Stud>& grupe);
 void Sort_students(vector <Stud>& grupe, string parametr);
 bool Generate_file_with_students(int number_of_students, int number_of_marks, string filename);
+void Divide_for_two_grupse(vector<Stud> grupe, vector<Stud>& best_grupe, vector<Stud>& worst_grupe);
 
 
