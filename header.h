@@ -40,7 +40,10 @@ void Get_final_mark(vector <Stud>& grupe, bool for_average_homework_mark, bool f
 void Print_final_mark(vector<Stud> grupe, bool for_average_homework_mark, bool for_both_homework_mark, bool print_results_in_terminal);
 int Get_size_for_string_printing(vector<Stud> grupe);
 void generate_marks(Stud& student);
+void generate_marks(vector<int>& Marks, int number_of_marks);
 void generate_name(Stud& student);
 void Enter_students_using_txt_file(vector<Stud>& grupe);
 void Sort_students(vector <Stud>& grupe, string parametr);
+bool Generate_file_with_students(int number_of_students, int number_of_marks, string filename);
+
 

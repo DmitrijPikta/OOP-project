@@ -15,17 +15,48 @@ int main()
         cout << "'3' - to create a student and automatically generate all his information" << endl;
         cout << "'4' - to enter students using txt file" << endl;
         cout << "'5' - to finish work and see results" << endl;
+        cout << "'6' - to generate file with students" << endl;
 
         string entered_action;
         cin >> entered_action;
 
-        if (entered_action != "1" and entered_action != "2" and entered_action != "3" and entered_action != "4" and entered_action != "5") {
+        if (entered_action != "1" and entered_action != "2" and entered_action != "3" and entered_action != "4" and entered_action != "5" and entered_action != "6") {
             cout << "Please enter one command from menu" << endl;
             continue;
         }
 
         if (entered_action == "5") {
             break;
+        }
+
+        if (entered_action == "6") {
+            while (true) {
+                cout << "Please enter how you want to name new file: ";
+                string filename;
+                cin >> filename;
+                cout << "Plese enter how much do you want to have students in file: ";
+                int number_of_students;
+                while (true) {
+                    try {
+                        cin >> number_of_students;
+                        if (number_of_students <= 0) {
+                            throw std::runtime_error("");
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    catch (exception) {
+                        cout << "Please enter number > 0" << endl;
+                    }
+                }
+                bool file_created;
+                file_created = Generate_file_with_students(number_of_students, 10, filename);
+                if (file_created) {
+                    break;
+                }
+            }
+            continue;
         }
 
         if (entered_action == "4") { 

@@ -160,6 +160,16 @@ void generate_marks(Stud& student)
 	student.exam_mark = distrib(gen);
 }
 
+void generate_marks(vector<int> &Marks, int number_of_marks)
+{
+	std::random_device rd;									// Create a random device and seed the generator
+	std::mt19937 gen(rd());									// Mersenne Twister engine
+	std::uniform_int_distribution<int> distrib(1, 10);      // Define range 1 to 10
+	for (int i = 0; i < number_of_marks; i++) {
+		Marks.push_back(distrib(gen));
+	}
+}
+
 void generate_name(Stud& student)
 {
 	vector<string> Names = {
@@ -263,4 +273,42 @@ void Sort_students(vector <Stud>& grupe, string parametr)
 			return a.second_name < b.second_name;
 			});
 	}
+}
+
+bool Generate_file_with_students(int number_of_students, int number_of_marks, string filename)
+{
+	std::ifstream fd(filename);
+	if (fd) {
+		fd.close();
+		cout << "Change file name, where is file with this name" << endl;
+		return false;
+	}
+	fd.close();
+
+	if (filename.length() < 4 and filename.substr(filename.size() - 4) != ".txt") {
+		cout << "Change file name, file can not have this name. Good name example: 'example.txt'" << endl;
+		return false;
+	}
+
+	std::ofstream fr(filename);
+
+	fr << left << setw(20) <<  "Vardas" << setw(20) << "Pavarde";
+	for (int i = 0; i < number_of_marks; i++) {
+		fr << "ND" << left << setw(8) << i + 1; 
+	}
+	fr << "Egz." << endl;
+	
+	vector<int> Marks;
+	for (int i = 0; i < number_of_students; i++) {
+		fr << "Vardas" << left << setw(14) << i + 1 << "Pavarde" << setw(13) << left << i + 1;
+		generate_marks(Marks, number_of_marks + 1);
+		for (int j = 0; j < number_of_marks; j++) {
+			fr << left << setw(10) << Marks[j];
+		}
+		fr << Marks[number_of_marks] << endl;
+		Marks.clear();
+	}
+
+	fr.close();
+	return true;
 }
