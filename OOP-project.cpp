@@ -51,7 +51,7 @@ int main()
                     }
                 }
                 bool file_created;
-                file_created = Generate_file_with_students(number_of_students, 2, filename);
+                file_created = Generate_file_with_students(number_of_students, 4, filename);
                 if (file_created) {
                     break;
                 }
