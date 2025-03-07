@@ -218,8 +218,6 @@ int main()
         Sort_students(grupe, parametr);
         Divide_for_two_grupse(grupe, best_grupe, worst_grupe);
 
-        //Sort_students(best_grupe, parametr);
-        //Sort_students(worst_grupe, parametr);
         Print_final_mark(best_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
         Print_final_mark(worst_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
 
