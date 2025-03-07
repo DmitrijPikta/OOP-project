@@ -231,6 +231,7 @@ void Enter_students_using_txt_file(vector<Stud>& grupe)
 			//---------------------------------------------------------------------------
 			auto start = std::chrono::high_resolution_clock::now();		// Time	
 			//---------------------------------------------------------------------------
+			grupe.reserve(10000000);
 			fd >> element >> element;
 			while (!last_homework_mark) {
 				number_of_homework_marks++;
@@ -362,4 +363,211 @@ void Divide_for_two_grupse(vector<Stud> grupe, vector<Stud>& best_grupe, vector<
 	std::chrono::duration<double> diff = end - start;		//Time
 	time_of_dividing += diff.count();
 	//-----------------------------------------------------------------
+}
+
+void Enter_students_using_txt_file_bufer(vector<Stud>& grupe)
+{
+	string file_name;
+	Stud student;
+	int mark;
+
+	string element;
+	bool last_homework_mark = false;
+	int number_of_homework_marks = -1;
+
+	while (true) {
+		cout << "Please enter file name" << endl;
+		cin >> file_name;
+		std::ifstream fd(file_name);
+
+		try {
+			if (!fd) {
+				throw std::runtime_error("");
+			}
+			//---------------------------------------------------------------------------
+			auto start = std::chrono::high_resolution_clock::now();		// Time	
+			//---------------------------------------------------------------------------
+			std::stringstream my_buffer;
+			my_buffer << fd.rdbuf();
+			fd.close();
+			cout << "Nuskaityta i buferi" << endl;
+
+			my_buffer >> element >> element;
+			while (!last_homework_mark) {
+				number_of_homework_marks++;
+				my_buffer >> element;
+				if (element == "Egz.") {
+					last_homework_mark = true;
+				}
+			}
+
+			while (my_buffer >> student.name) {
+				my_buffer >> student.second_name;
+				for (int i = 0; i < number_of_homework_marks; i++) {
+					my_buffer >> mark;
+					student.Homework_marks.push_back(mark);
+				}
+				my_buffer >> student.exam_mark;
+
+				grupe.push_back(student);
+				student.Homework_marks.clear();
+			}
+
+			//fd.close();
+			//-----------------------------------------------------------------
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double> diff = end - start;		//Time
+			time_of_reading_file += diff.count();
+			//-----------------------------------------------------------------
+		}
+		catch (exception) {
+			cout << "unable to open file" << endl;
+			continue;
+		}
+		break;
+	}
+}
+
+void Enter_students_using_txt_file_try(vector<Stud>& grupe)
+{
+	string file_name;
+	Stud student;
+	int mark;
+
+	string element;
+	bool last_homework_mark = false;
+	int number_of_homework_marks = -1;
+
+	int block_size = 100000;
+
+	while (true) {
+		cout << "Please enter file name" << endl;
+		cin >> file_name;
+		std::ifstream fd(file_name);
+
+		try {
+			if (!fd) {
+				throw std::runtime_error("");
+			}
+			//---------------------------------------------------------------------------
+			auto start = std::chrono::high_resolution_clock::now();		// Time	
+			//---------------------------------------------------------------------------
+			//grupe.reserve(10000000);
+			int counter = 0;
+			int readed_strings = 0;
+			
+
+				fd >> element >> element;
+				while (!last_homework_mark) {
+					number_of_homework_marks++;
+					fd >> element;
+					if (element == "Egz.") {
+						last_homework_mark = true;
+					}
+				}
+
+				while (counter < 10) {
+					while (readed_strings < block_size) {
+						fd >> student.name;
+						fd >> student.second_name;
+						for (int i = 0; i < number_of_homework_marks; i++) {
+							fd >> mark;
+							student.Homework_marks.push_back(mark);
+						}
+						fd >> student.exam_mark;
+
+						grupe.push_back(student);
+						student.Homework_marks.clear();
+						readed_strings++;
+					}
+					fd.close();
+					counter++;
+					string line;
+					int skipped = 0;
+					std::ifstream fd(file_name);
+					while (skipped < block_size*counter && std::getline(fd, line)) {
+						skipped++;
+					}
+				}
+				fd.close();
+
+
+			
+			fd.close();
+			//-----------------------------------------------------------------
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double> diff = end - start;		//Time
+			time_of_reading_file += diff.count();
+			//-----------------------------------------------------------------
+		}
+		catch (exception) {
+			cout << "unable to open file" << endl;
+			continue;
+		}
+		break;
+	}
+}
+
+void Enter_students_using_txt_file_bufer_P(vector<Stud>& grupe)
+{
+	string file_name;
+	Stud student;
+	int mark;
+
+	string element;
+	bool last_homework_mark = false;
+	int number_of_homework_marks = -1;
+
+	while (true) {
+		cout << "Please enter file name" << endl;
+		cin >> file_name;
+		std::ifstream fd(file_name);
+
+		try {
+			if (!fd) {
+				throw std::runtime_error("");
+			}
+			//---------------------------------------------------------------------------
+			auto start = std::chrono::high_resolution_clock::now();		// Time	
+			//---------------------------------------------------------------------------
+			std::stringstream my_buffer;
+			my_buffer << fd.rdbuf();
+			fd.close();
+			cout << "Nuskaityta i buferi" << endl;
+
+			my_buffer >> element >> element;
+			while (!last_homework_mark) {
+				number_of_homework_marks++;
+				my_buffer >> element;
+				if (element == "Egz.") {
+					last_homework_mark = true;
+				}
+			}
+
+			string line;
+			while (getline(my_buffer, line)) {
+				std::stringstream ss(line);
+				ss >> student.name >> student.second_name;
+				for (int i = 0; i < number_of_homework_marks; i++) {
+					ss >> mark;
+					student.Homework_marks.push_back(mark);
+				}
+				ss >> student.exam_mark;
+				grupe.push_back(student);
+				student.Homework_marks.clear();
+			}
+
+			//-----------------------------------------------------------------
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<double> diff = end - start;		//Time
+			time_of_reading_file += diff.count();
+			//-----------------------------------------------------------------
+		}
+		catch (exception) {
+			cout << "unable to open file" << endl;
+			cout << exception << endl;
+			continue;
+		}
+		break;
+	}
 }

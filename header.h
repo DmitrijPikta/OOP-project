@@ -11,6 +11,7 @@
 #include <chrono>
 
 
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -52,5 +53,8 @@ void Enter_students_using_txt_file(vector<Stud>& grupe);
 void Sort_students(vector <Stud>& grupe, string parametr);
 bool Generate_file_with_students(int number_of_students, int number_of_marks, string filename);
 void Divide_for_two_grupse(vector<Stud> grupe, vector<Stud>& best_grupe, vector<Stud>& worst_grupe);
+void Enter_students_using_txt_file_bufer(vector<Stud>& grupe);
+void Enter_students_using_txt_file_try(vector<Stud>& grupe);
+void Enter_students_using_txt_file_bufer_P(vector<Stud>& grupe);
 
 

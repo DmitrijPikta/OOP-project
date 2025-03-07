@@ -51,7 +51,7 @@ int main()
                     }
                 }
                 bool file_created;
-                file_created = Generate_file_with_students(number_of_students, 10, filename);
+                file_created = Generate_file_with_students(number_of_students, 2, filename);
                 if (file_created) {
                     break;
                 }
@@ -60,7 +60,7 @@ int main()
         }
 
         if (entered_action == "4") { 
-            Enter_students_using_txt_file(grupe);
+            Enter_students_using_txt_file_bufer_P(grupe);
             continue;
         }
 
