@@ -7,12 +7,12 @@ double time_of_sorting = 0;
 double time_of_culculating = 0;
 double time_of_writing_files = 0;
 
-void Get_final_mark(vector<Stud>& grupe, bool for_average_homework_mark, bool for_both_homework_mark)
+void Get_final_mark(vector<Stud> &grupe, bool for_average_homework_mark, bool for_both_homework_mark)
 {
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
-	for (int i = 0; i < grupe.end() - grupe.begin(); i++)
+	for (int i = 0; i < grupe.size(); i++)
 	{
 		if (for_average_homework_mark && for_both_homework_mark)
 		{
@@ -39,7 +39,7 @@ double Get_average_for_homework_mark(Stud student)
 {
 	int suma_of_marks = 0;
 	int amount_of_marks = 0;
-	for (int i = 0; i < student.Homework_marks.end() - student.Homework_marks.begin(); i++)
+	for (int i = 0; i < student.Homework_marks.size(); i++)
 	{
 		suma_of_marks += student.Homework_marks[i];
 		amount_of_marks++;
@@ -53,7 +53,7 @@ double Get_average_for_homework_mark(Stud student)
 
 double Get_mediana_for_homework_mark(Stud student)
 {
-	int amount_of_marks = student.Homework_marks.end() - student.Homework_marks.begin();
+	int amount_of_marks = student.Homework_marks.size();
 	if (amount_of_marks == 0)
 	{
 		return 0;
@@ -69,23 +69,23 @@ double Get_mediana_for_homework_mark(Stud student)
 	}
 }
 
-void Print_final_mark(vector<Stud>& grupe, bool for_average_homework_mark, bool for_both_homework_mark, bool print_results_in_terminal)
+void Print_final_mark(vector<Stud> &grupe, bool for_average_homework_mark, bool for_both_homework_mark, bool print_results_in_terminal)
 {
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
 	string output;
-	auto Print_results = [print_results_in_terminal](string output, std::ofstream& fr)
+	auto Print_results = [print_results_in_terminal](string output, std::ofstream &fr)
+	{
+		if (print_results_in_terminal)
 		{
-			if (print_results_in_terminal)
-			{
-				cout << output;
-			}
-			else
-			{
-				fr << output;
-			}
-		};
+			cout << output;
+		}
+		else
+		{
+			fr << output;
+		}
+	};
 
 	string filename;
 	if (grupe.back().final_mark >= 5)
@@ -148,7 +148,7 @@ void Print_final_mark(vector<Stud>& grupe, bool for_average_homework_mark, bool 
 	std::ostringstream oss;
 	if (!for_both_homework_mark)
 	{
-		for (int i = 0; i < grupe.end() - grupe.begin(); i++)
+		for (int i = 0; i < grupe.size(); i++)
 		{
 			oss << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << grupe[i].final_mark << endl;
 			output = oss.str();
@@ -159,7 +159,7 @@ void Print_final_mark(vector<Stud>& grupe, bool for_average_homework_mark, bool 
 	}
 	else
 	{
-		for (int i = 0; i < grupe.end() - grupe.begin(); i++)
+		for (int i = 0; i < grupe.size(); i++)
 		{
 			oss << left << setw(size) << grupe[i].second_name << setw(size) << grupe[i].name << fixed << setprecision(2) << setw(17) << grupe[i].final_mark << grupe[i].second_final_mark << endl;
 			output = oss.str();
@@ -176,10 +176,10 @@ void Print_final_mark(vector<Stud>& grupe, bool for_average_homework_mark, bool 
 	//-----------------------------------------------------------------
 }
 
-int Get_size_for_string_printing(vector<Stud>& grupe)
+int Get_size_for_string_printing(vector<Stud> &grupe)
 {
 	int max_length_of_string = 0;
-	for (int i = 0; i < grupe.end() - grupe.begin(); i++)
+	for (int i = 0; i < grupe.size(); i++)
 	{
 		if (grupe[i].name.length() > max_length_of_string || grupe[i].second_name.length() > max_length_of_string)
 		{
@@ -204,7 +204,7 @@ int Get_size_for_string_printing(vector<Stud>& grupe)
 	}
 }
 
-void generate_marks(Stud& student)
+void generate_marks(Stud &student)
 {
 	std::random_device rd;							   // Create a random device and seed the generator
 	std::mt19937 gen(rd());							   // Mersenne Twister engine
@@ -216,7 +216,7 @@ void generate_marks(Stud& student)
 	student.exam_mark = distrib(gen);
 }
 
-void generate_marks(vector<int>& Marks, int number_of_marks)
+void generate_marks(vector<int> &Marks, int number_of_marks)
 {
 	std::random_device rd;							   // Create a random device and seed the generator
 	std::mt19937 gen(rd());							   // Mersenne Twister engine
@@ -227,18 +227,18 @@ void generate_marks(vector<int>& Marks, int number_of_marks)
 	}
 }
 
-void generate_name(Stud& student)
+void generate_name(Stud &student)
 {
 	vector<string> Names = {
 		"Alice", "Bob", "Charlie", "David", "Emma",
 		"Frank", "Grace", "Henry", "Ivy", "Jack",
 		"Karen", "Liam", "Mia", "Noah", "Olivia",
-		"Paul", "Quinn", "Rachel", "Sam", "Tina" };
+		"Paul", "Quinn", "Rachel", "Sam", "Tina"};
 	vector<string> Second_names = {
 		"Smith", "Johnson", "Williams", "Brown", "Jones",
 		"Miller", "Davis", "Garcia", "Rodriguez", "Martinez",
 		"Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson",
-		"Thomas", "Taylor", "Moore", "Jackson", "Martin" };
+		"Thomas", "Taylor", "Moore", "Jackson", "Martin"};
 
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -248,30 +248,30 @@ void generate_name(Stud& student)
 	student.second_name = Second_names[distrib(gen)];
 }
 
-void Sort_students(vector<Stud>& grupe, string parametr)
+void Sort_students(vector<Stud> &grupe, string parametr)
 {
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
 	if (parametr == "final_mark")
 	{
-		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b)
-			{ return a.final_mark > b.final_mark; });
+		sort(grupe.begin(), grupe.end(), [](const Stud &a, const Stud &b)
+			 { return a.final_mark > b.final_mark; });
 	}
 	else if (parametr == "second_final_mark")
 	{
-		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b)
-			{ return a.second_final_mark > b.second_final_mark; });
+		sort(grupe.begin(), grupe.end(), [](const Stud &a, const Stud &b)
+			 { return a.second_final_mark > b.second_final_mark; });
 	}
 	else if (parametr == "name")
 	{
-		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b)
-			{ return a.name < b.name; });
+		sort(grupe.begin(), grupe.end(), [](const Stud &a, const Stud &b)
+			 { return a.name < b.name; });
 	}
 	else if (parametr == "second_name")
 	{
-		sort(grupe.begin(), grupe.end(), [](const Stud& a, const Stud& b)
-			{ return a.second_name < b.second_name; });
+		sort(grupe.begin(), grupe.end(), [](const Stud &a, const Stud &b)
+			 { return a.second_name < b.second_name; });
 	}
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();
@@ -330,23 +330,22 @@ bool Generate_file_with_students(int number_of_students, int number_of_marks, st
 	return true;
 }
 
-void Divide_for_two_grupse(vector<Stud>& grupe, vector<Stud>& best_grupe, vector<Stud>& worst_grupe)
+void Divide_for_two_grupse(vector<Stud> &grupe, vector<Stud> &best_grupe, vector<Stud> &worst_grupe)
 {
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
-	int size_of_grupe = grupe.end() - grupe.begin();
-	best_grupe.reserve(size_of_grupe * 0.7);
-	worst_grupe.reserve(size_of_grupe * 0.7);
-	for (int i = 0; i < grupe.end() - grupe.begin(); i++)
+	best_grupe.reserve(grupe.size() * 0.7);
+	worst_grupe.reserve(grupe.size() * 0.7);
+	for (int i = 0; i < grupe.size(); i++)
 	{
-		if (grupe[i].final_mark >= 5)
+		if (grupe.at(i).final_mark >= 5)
 		{
-			best_grupe.push_back(grupe[i]);
+			best_grupe.push_back(grupe.at(i));
 		}
 		else
 		{
-			worst_grupe.push_back(grupe[i]);
+			worst_grupe.push_back(grupe.at(i));
 		}
 	}
 	best_grupe.shrink_to_fit();
@@ -360,7 +359,7 @@ void Divide_for_two_grupse(vector<Stud>& grupe, vector<Stud>& best_grupe, vector
 	//-----------------------------------------------------------------
 }
 
-void Enter_students_using_txt_file_bufer_P(vector<Stud>& grupe)
+void Enter_students_using_txt_file_bufer_P(vector<Stud> &grupe)
 {
 	string file_name;
 	Stud student;
