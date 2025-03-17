@@ -1,10 +1,9 @@
 #include "header.h"
 
-
 int main()
 {
     Stud student;
-    vector<Stud> grupe;
+    list<Stud> grupe;
 
     while (true)
     {
@@ -251,15 +250,21 @@ int main()
             cout << "Entered wrong simbol" << endl;
         }
 
-        vector<Stud> best_grupe;
-        vector<Stud> worst_grupe;
+        list<Stud> best_grupe;
+        list<Stud> worst_grupe;
         cout << "Start of sorting" << endl;
         Sort_students(grupe, parametr);
         cout << "Start of dividing for two grupes" << endl;
         Divide_for_two_grupse(grupe, best_grupe, worst_grupe);
         cout << "Start of printing" << endl;
-        Print_final_mark(best_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
-        Print_final_mark(worst_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
+        if (best_grupe.size() > 0)
+        {
+            Print_final_mark(best_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
+        }
+        if (worst_grupe.size() > 0)
+        {
+            Print_final_mark(worst_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
+        }
     }
     else
     {

@@ -53,6 +53,8 @@ double Get_average_for_homework_mark(Stud student)
 
 double Get_mediana_for_homework_mark(Stud student)
 {
+	sort(student.Homework_marks.begin(), student.Homework_marks.end());
+
 	int amount_of_marks = student.Homework_marks.size();
 	if (amount_of_marks == 0)
 	{
@@ -64,7 +66,6 @@ double Get_mediana_for_homework_mark(Stud student)
 	}
 	else
 	{
-
 		return student.Homework_marks[amount_of_marks / 2];
 	}
 }
