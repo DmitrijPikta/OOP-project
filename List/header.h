@@ -3,7 +3,6 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <vector>
 #include <random>
 #include <fstream>
 #include <sstream>
@@ -21,7 +20,6 @@ using std::list;
 using std::setprecision;
 using std::setw;
 using std::string;
-using std::vector;
 
 struct Stud
 {

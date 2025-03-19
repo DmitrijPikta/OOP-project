@@ -233,12 +233,12 @@ void generate_marks(list<int> &Marks, int number_of_marks)
 
 void generate_name(Stud &student)
 {
-	vector<string> Names = {
+	list<string> Names = {
 		"Alice", "Bob", "Charlie", "David", "Emma",
 		"Frank", "Grace", "Henry", "Ivy", "Jack",
 		"Karen", "Liam", "Mia", "Noah", "Olivia",
 		"Paul", "Quinn", "Rachel", "Sam", "Tina"};
-	vector<string> Second_names = {
+	list<string> Second_names = {
 		"Smith", "Johnson", "Williams", "Brown", "Jones",
 		"Miller", "Davis", "Garcia", "Rodriguez", "Martinez",
 		"Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson",
@@ -248,8 +248,13 @@ void generate_name(Stud &student)
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<int> distrib(0, 19);
 
-	student.name = Names[distrib(gen)];
-	student.second_name = Second_names[distrib(gen)];
+	auto it = Names.begin();
+	std::advance(it, distrib(gen));
+	student.name = *it;
+
+	it = Second_names.begin();
+	std::advance(it, distrib(gen));
+	student.second_name = *it;
 }
 
 void Sort_students(list<Stud> &grupe, string parametr)
@@ -266,22 +271,16 @@ void Sort_students(list<Stud> &grupe, string parametr)
 	{
 		grupe.sort([](const Stud &a, const Stud &b)
 				   { return a.second_final_mark > b.second_final_mark; });
-		// sort(grupe.begin(), grupe.end(), [](const Stud &a, const Stud &b)
-		//	 { return a.second_final_mark > b.second_final_mark; });
 	}
 	else if (parametr == "name")
 	{
 		grupe.sort([](const Stud &a, const Stud &b)
 				   { return a.name > b.name; });
-		// sort(grupe.begin(), grupe.end(), [](const Stud &a, const Stud &b)
-		//	 { return a.name < b.name; });
 	}
 	else if (parametr == "second_name")
 	{
 		grupe.sort([](const Stud &a, const Stud &b)
 				   { return a.second_name > b.second_name; });
-		// sort(grupe.begin(), grupe.end(), [](const Stud &a, const Stud &b)
-		//	 { return a.second_name < b.second_name; });
 	}
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();

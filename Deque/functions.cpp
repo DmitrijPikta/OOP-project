@@ -7,7 +7,7 @@ double time_of_sorting = 0;
 double time_of_culculating = 0;
 double time_of_writing_files = 0;
 
-void Get_final_mark(vector<Stud> &grupe, bool for_average_homework_mark, bool for_both_homework_mark)
+void Get_final_mark(deque<Stud> &grupe, bool for_average_homework_mark, bool for_both_homework_mark)
 {
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
@@ -54,6 +54,7 @@ double Get_average_for_homework_mark(Stud student)
 double Get_mediana_for_homework_mark(Stud student)
 {
 	int amount_of_marks = student.Homework_marks.size();
+	sort(student.Homework_marks.begin(), student.Homework_marks.end());
 	if (amount_of_marks == 0)
 	{
 		return 0;
@@ -69,7 +70,7 @@ double Get_mediana_for_homework_mark(Stud student)
 	}
 }
 
-void Print_final_mark(vector<Stud> &grupe, bool for_average_homework_mark, bool for_both_homework_mark, bool print_results_in_terminal)
+void Print_final_mark(deque<Stud> &grupe, bool for_average_homework_mark, bool for_both_homework_mark, bool print_results_in_terminal)
 {
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
@@ -176,7 +177,7 @@ void Print_final_mark(vector<Stud> &grupe, bool for_average_homework_mark, bool 
 	//-----------------------------------------------------------------
 }
 
-int Get_size_for_string_printing(vector<Stud> &grupe)
+int Get_size_for_string_printing(deque<Stud> &grupe)
 {
 	int max_length_of_string = 0;
 	for (int i = 0; i < grupe.size(); i++)
@@ -216,7 +217,7 @@ void generate_marks(Stud &student)
 	student.exam_mark = distrib(gen);
 }
 
-void generate_marks(vector<int> &Marks, int number_of_marks)
+void generate_marks(deque<int> &Marks, int number_of_marks)
 {
 	std::random_device rd;							   // Create a random device and seed the generator
 	std::mt19937 gen(rd());							   // Mersenne Twister engine
@@ -229,12 +230,12 @@ void generate_marks(vector<int> &Marks, int number_of_marks)
 
 void generate_name(Stud &student)
 {
-	vector<string> Names = {
+	deque<string> Names = {
 		"Alice", "Bob", "Charlie", "David", "Emma",
 		"Frank", "Grace", "Henry", "Ivy", "Jack",
 		"Karen", "Liam", "Mia", "Noah", "Olivia",
 		"Paul", "Quinn", "Rachel", "Sam", "Tina"};
-	vector<string> Second_names = {
+	deque<string> Second_names = {
 		"Smith", "Johnson", "Williams", "Brown", "Jones",
 		"Miller", "Davis", "Garcia", "Rodriguez", "Martinez",
 		"Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson",
@@ -248,7 +249,7 @@ void generate_name(Stud &student)
 	student.second_name = Second_names[distrib(gen)];
 }
 
-void Sort_students(vector<Stud> &grupe, string parametr)
+void Sort_students(deque<Stud> &grupe, string parametr)
 {
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
@@ -308,7 +309,7 @@ bool Generate_file_with_students(int number_of_students, int number_of_marks, st
 	}
 	fr << "Egz." << endl;
 
-	vector<int> Marks;
+	deque<int> Marks;
 	for (int i = 0; i < number_of_students; i++)
 	{
 		fr << "Vardas" << left << setw(14) << i + 1 << "Pavarde" << setw(13) << left << i + 1;
@@ -330,13 +331,11 @@ bool Generate_file_with_students(int number_of_students, int number_of_marks, st
 	return true;
 }
 
-void Divide_for_two_grupse(vector<Stud> &grupe, vector<Stud> &best_grupe, vector<Stud> &worst_grupe)
+void Divide_for_two_grupse(deque<Stud> &grupe, deque<Stud> &best_grupe, deque<Stud> &worst_grupe)
 {
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
-	best_grupe.reserve(grupe.size() * 0.7);
-	worst_grupe.reserve(grupe.size() * 0.7);
 	for (int i = 0; i < grupe.size(); i++)
 	{
 		if (grupe.at(i).final_mark >= 5)
@@ -348,10 +347,7 @@ void Divide_for_two_grupse(vector<Stud> &grupe, vector<Stud> &best_grupe, vector
 			worst_grupe.push_back(grupe.at(i));
 		}
 	}
-	best_grupe.shrink_to_fit();
-	worst_grupe.shrink_to_fit();
 	grupe.clear();
-	vector<Stud>().swap(grupe);
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> diff = end - start; // Time
@@ -359,7 +355,7 @@ void Divide_for_two_grupse(vector<Stud> &grupe, vector<Stud> &best_grupe, vector
 	//-----------------------------------------------------------------
 }
 
-void Enter_students_using_txt_file_bufer_P(vector<Stud> &grupe)
+void Enter_students_using_txt_file_bufer_P(deque<Stud> &grupe)
 {
 	string file_name;
 	Stud student;
