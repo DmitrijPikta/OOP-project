@@ -360,6 +360,31 @@ void Divide_for_two_grupse(vector<Stud> &grupe, vector<Stud> &best_grupe, vector
 	//-----------------------------------------------------------------
 }
 
+void Divide_for_two_grupse(vector<Stud> &grupe, vector<Stud> &worst_grupe)
+{
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now(); // Time
+	//---------------------------------------------------------------------------
+	worst_grupe.reserve(grupe.size() * 0.7);
+	for (int i = 0; i < grupe.size(); i++)
+	{
+		if (grupe.at(i).final_mark < 5)
+		{
+			worst_grupe.push_back(grupe.at(i));
+			grupe.erase(grupe.begin() + i);
+			i--;
+		}
+	}
+	grupe.shrink_to_fit();
+	cout << grupe.size() << endl;
+	worst_grupe.shrink_to_fit();
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start; // Time
+	time_of_dividing += diff.count();
+	//-----------------------------------------------------------------
+}
+
 void Enter_students_using_txt_file_bufer_P(vector<Stud> &grupe)
 {
 	string file_name;
