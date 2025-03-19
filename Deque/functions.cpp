@@ -355,6 +355,27 @@ void Divide_for_two_grupse(deque<Stud> &grupe, deque<Stud> &best_grupe, deque<St
 	//-----------------------------------------------------------------
 }
 
+void Divide_for_two_grupse(deque<Stud> &grupe, deque<Stud> &worst_grupe)
+{
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now(); // Time
+	//---------------------------------------------------------------------------
+	for (int i = 0; i < grupe.size(); i++)
+	{
+		if (grupe.at(i).final_mark < 5)
+		{
+			worst_grupe.push_back(grupe.at(i));
+			grupe.erase(grupe.begin() + i);
+			i--;
+		}
+	}
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start; // Time
+	time_of_dividing += diff.count();
+	//-----------------------------------------------------------------
+}
+
 void Enter_students_using_txt_file_bufer_P(deque<Stud> &grupe)
 {
 	string file_name;

@@ -282,7 +282,6 @@ int main()
         }
 
         cout << "Start of printing" << endl;
-
         if (best_grupe.size() > 0 || grupe.size() > 0)
         {
             if (entered_simbol_for_dividing == "1")

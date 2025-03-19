@@ -49,4 +49,5 @@ void generate_name(Stud &student);
 void Sort_students(deque<Stud> &grupe, string parametr);
 bool Generate_file_with_students(int number_of_students, int number_of_marks, string filename);
 void Divide_for_two_grupse(deque<Stud> &grupe, deque<Stud> &best_grupe, deque<Stud> &worst_grupe);
+void Divide_for_two_grupse(deque<Stud> &grupe, deque<Stud> &worst_grupe);
 void Enter_students_using_txt_file_bufer_P(deque<Stud> &grupe);

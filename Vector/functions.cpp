@@ -376,7 +376,6 @@ void Divide_for_two_grupse(vector<Stud> &grupe, vector<Stud> &worst_grupe)
 		}
 	}
 	grupe.shrink_to_fit();
-	cout << grupe.size() << endl;
 	worst_grupe.shrink_to_fit();
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();
