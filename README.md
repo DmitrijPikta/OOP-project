@@ -1,4 +1,4 @@
-Test of v1.0 vertion
+Test of v1.0 version
 
 System parametrs:
 
