@@ -252,8 +252,7 @@ int main()
 
         deque<Stud> best_grupe;
         deque<Stud> worst_grupe;
-        cout << "Start of sorting" << endl;
-        Sort_students(grupe, parametr);
+
         string entered_simbol_for_dividing;
         while (true)
         {
@@ -264,13 +263,11 @@ int main()
             cin >> entered_simbol_for_dividing;
             if (entered_simbol_for_dividing == "1")
             {
-                cout << "Start of dividing for two grupes" << endl;
                 Divide_for_two_grupse(grupe, best_grupe, worst_grupe);
                 break;
             }
             else if (entered_simbol_for_dividing == "2")
             {
-                cout << "Start of dividing for two grupes" << endl;
                 Divide_for_two_grupse(grupe, worst_grupe);
                 break;
             }
@@ -280,15 +277,16 @@ int main()
             cout << "Entered wrong simbol" << endl;
         }
 
-        cout << "Start of printing" << endl;
         if (best_grupe.size() > 0 || grupe.size() > 0)
         {
             if (entered_simbol_for_dividing == "1")
             {
+                Sort_students(best_grupe, parametr);
                 Print_final_mark(best_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
             }
             else
             {
+                Sort_students(grupe, parametr);
                 Print_final_mark(grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
             }
         }

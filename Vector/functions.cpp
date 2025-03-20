@@ -366,17 +366,44 @@ void Divide_for_two_grupse(vector<Stud> &grupe, vector<Stud> &worst_grupe)
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
 	worst_grupe.reserve(grupe.size() * 0.7);
+
+	Sort_students(grupe, "final_mark");
+	while (grupe.back().final_mark < 5)
+	{
+		worst_grupe.push_back(grupe.back());
+		grupe.pop_back();
+	}
+
+	grupe.shrink_to_fit();
+	worst_grupe.shrink_to_fit();
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start; // Time
+	time_of_dividing += diff.count();
+	//-----------------------------------------------------------------
+}
+
+void Divide_for_two_grupse_v3(vector<Stud> &grupe, vector<Stud> &best_grupe, vector<Stud> &worst_grupe)
+{
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now(); // Time
+	//---------------------------------------------------------------------------
+	best_grupe.reserve(grupe.size() * 0.7);
+	worst_grupe.reserve(grupe.size() * 0.7);
+	Sort_students(grupe, "final_mark");
+	int dividing_point = 0;
 	for (int i = 0; i < grupe.size(); i++)
 	{
 		if (grupe.at(i).final_mark < 5)
 		{
-			worst_grupe.push_back(grupe.at(i));
-			grupe.erase(grupe.begin() + i);
-			i--;
+			dividing_point = i;
 		}
 	}
-	grupe.shrink_to_fit();
+
+	best_grupe.shrink_to_fit();
 	worst_grupe.shrink_to_fit();
+	grupe.clear();
+	vector<Stud>().swap(grupe);
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> diff = end - start; // Time

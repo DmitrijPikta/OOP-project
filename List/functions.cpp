@@ -371,17 +371,24 @@ void Divide_for_two_grupse(list<Stud> &grupe, list<Stud> &worst_grupe)
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
-	for (auto it = grupe.begin(); it != grupe.end();)
+	// for (auto it = grupe.begin(); it != grupe.end();)
+	//{
+	//	if (it->final_mark < 5)
+	//	{
+	//		worst_grupe.push_back(*it);
+	//		it = grupe.erase(it);
+	//	}
+	//	else
+	//	{
+	//		it++;
+	//	}
+	//}
+
+	Sort_students(grupe, "final_mark");
+	while (grupe.back().final_mark < 5)
 	{
-		if (it->final_mark < 5)
-		{
-			worst_grupe.push_back(*it);
-			it = grupe.erase(it);
-		}
-		else
-		{
-			it++;
-		}
+		worst_grupe.push_back(grupe.back());
+		grupe.pop_back();
 	}
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();

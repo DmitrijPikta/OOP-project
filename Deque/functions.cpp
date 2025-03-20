@@ -360,14 +360,11 @@ void Divide_for_two_grupse(deque<Stud> &grupe, deque<Stud> &worst_grupe)
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
-	for (int i = 0; i < grupe.size(); i++)
+	Sort_students(grupe, "final_mark");
+	while (grupe.back().final_mark < 5)
 	{
-		if (grupe.at(i).final_mark < 5)
-		{
-			worst_grupe.push_back(grupe.at(i));
-			grupe.erase(grupe.begin() + i);
-			i--;
-		}
+		worst_grupe.push_back(grupe.back());
+		grupe.pop_back();
 	}
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();
