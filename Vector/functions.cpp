@@ -388,20 +388,19 @@ void Divide_for_two_grupse_v3(vector<Stud> &grupe, vector<Stud> &best_grupe, vec
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
-	best_grupe.reserve(grupe.size() * 0.7);
-	worst_grupe.reserve(grupe.size() * 0.7);
-	Sort_students(grupe, "final_mark");
-	int dividing_point = 0;
-	for (int i = 0; i < grupe.size(); i++)
-	{
-		if (grupe.at(i).final_mark < 5)
-		{
-			dividing_point = i;
-		}
-	}
+	best_grupe.resize(grupe.size());
+	worst_grupe.resize(grupe.size());
 
-	best_grupe.shrink_to_fit();
-	worst_grupe.shrink_to_fit();
+	auto new_end = std::copy_if(grupe.begin(), grupe.end(), best_grupe.begin(), [](const Stud s)
+								{ return s.final_mark >= 5; });
+
+	best_grupe.resize(std::distance(best_grupe.begin(), new_end));
+
+	new_end = std::copy_if(grupe.begin(), grupe.end(), worst_grupe.begin(), [](const Stud s)
+						   { return s.final_mark < 5; });
+
+	worst_grupe.resize(std::distance(worst_grupe.begin(), new_end));
+
 	grupe.clear();
 	vector<Stud>().swap(grupe);
 	//-----------------------------------------------------------------
