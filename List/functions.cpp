@@ -371,25 +371,31 @@ void Divide_for_two_grupse(list<Stud> &grupe, list<Stud> &worst_grupe)
 	//---------------------------------------------------------------------------
 	auto start = std::chrono::high_resolution_clock::now(); // Time
 	//---------------------------------------------------------------------------
-	// for (auto it = grupe.begin(); it != grupe.end();)
-	//{
-	//	if (it->final_mark < 5)
-	//	{
-	//		worst_grupe.push_back(*it);
-	//		it = grupe.erase(it);
-	//	}
-	//	else
-	//	{
-	//		it++;
-	//	}
-	//}
-
 	Sort_students(grupe, "final_mark");
 	while (grupe.back().final_mark < 5)
 	{
 		worst_grupe.push_back(grupe.back());
 		grupe.pop_back();
 	}
+	//-----------------------------------------------------------------
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> diff = end - start; // Time
+	time_of_dividing += diff.count();
+	//-----------------------------------------------------------------
+}
+
+void Divide_for_two_grupse_v3(list<Stud> &grupe, list<Stud> &best_grupe, list<Stud> &worst_grupe)
+{
+	//---------------------------------------------------------------------------
+	auto start = std::chrono::high_resolution_clock::now(); // Time
+	//---------------------------------------------------------------------------
+	std::copy_if(grupe.begin(), grupe.end(), std::back_inserter(best_grupe), [](const Stud s)
+				 { return s.final_mark >= 5; });
+
+	std::copy_if(grupe.begin(), grupe.end(), std::back_inserter(worst_grupe), [](const Stud s)
+				 { return s.final_mark < 5; });
+
+	grupe.clear();
 	//-----------------------------------------------------------------
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> diff = end - start; // Time
