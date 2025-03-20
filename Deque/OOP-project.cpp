@@ -273,13 +273,15 @@ int main()
             }
             else if (entered_simbol_for_dividing == "3")
             {
+                Divide_for_two_grupse_v3(grupe, best_grupe, worst_grupe);
+                break;
             }
             cout << "Entered wrong simbol" << endl;
         }
 
         if (best_grupe.size() > 0 || grupe.size() > 0)
         {
-            if (entered_simbol_for_dividing == "1")
+            if (entered_simbol_for_dividing == "1" || entered_simbol_for_dividing == "3")
             {
                 Sort_students(best_grupe, parametr);
                 Print_final_mark(best_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
@@ -292,6 +294,7 @@ int main()
         }
         if (worst_grupe.size())
         {
+            Sort_students(worst_grupe, parametr);
             Print_final_mark(worst_grupe, for_average_homework_mark, for_both_homework_mark, print_results_in_terminal);
         }
     }
