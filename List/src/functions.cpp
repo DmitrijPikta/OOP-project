@@ -322,7 +322,7 @@ bool Generate_file_with_students(int number_of_students, int number_of_marks, st
 	{
 		fr << "Vardas" << left << setw(14) << i + 1 << "Pavarde" << setw(13) << left << i + 1;
 		generate_marks(Marks, number_of_marks + 1);
-		for (int j; j < number_of_marks; j++)
+		for (int j = 0; j < number_of_marks; j++)
 		{
 			fr << left << setw(10) << Marks.front();
 			Marks.pop_front();
